@@ -3,11 +3,13 @@ package com.mashreq.com.service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mashreq.com.entity.CurrencyMaintenanceEntity;
+import com.mashreq.com.exception.NoCountyAvaillableInourRecord;
 import com.mashreq.com.exception.UserIdNotAvailableInOutRecord;
 import com.mashreq.com.repo.CurrencyMaintenancerepo;
 
@@ -66,6 +68,45 @@ public class CurrencyMaintenanceServiceImpl implements CurrencyMaintenanceServic
 	public void updateCurrencyMaintenanceEntity(CurrencyMaintenanceEntity currencyMaintenanceEntity) {
 		repo.save(currencyMaintenanceEntity);
 
+	}
+
+	@Override
+	public List<CurrencyMaintenanceEntity> featchBassedOnCountryCurrencyMaintenanceEntity(String country)
+			throws NoCountyAvaillableInourRecord {
+
+		List<CurrencyMaintenanceEntity> countrybasedonCurrencyMaintenanceEntity = repo
+				.getCountryCurrencyMaintenanceEntity(country);
+		if (countrybasedonCurrencyMaintenanceEntity.isEmpty()) {
+
+			throw new NoCountyAvaillableInourRecord("no "+"+"+country+"+"+"country found in our record");
+		}
+
+		else {
+
+			return countrybasedonCurrencyMaintenanceEntity;
+		}
+
+	}
+
+	@Override
+	public List<CurrencyMaintenanceEntity> getValueGratterThen(int id) {
+
+		List<CurrencyMaintenanceEntity> currencyMaintenanceEntityall = repo.findAll();
+		
+		List<CurrencyMaintenanceEntity> currencyMaintenanceEntityallGetGatterThen = currencyMaintenanceEntityall.stream().filter(filterValue -> filterValue.getValue()>id).collect(Collectors.toList());
+		
+		return currencyMaintenanceEntityallGetGatterThen;
+	}
+	@Override
+	public List<CurrencyMaintenanceEntity> getValueLessThen(int id) {
+
+		List<CurrencyMaintenanceEntity> currencyMaintenanceEntityall = repo.findAll();
+		
+		List<CurrencyMaintenanceEntity> currencyMaintenanceEntityallGetsetterThen = 
+				currencyMaintenanceEntityall.stream().filter(filterValue -> filterValue.getValue()<id)
+				                                                    .collect(Collectors.toList());
+		
+		return currencyMaintenanceEntityallGetsetterThen;
 	}
 
 }

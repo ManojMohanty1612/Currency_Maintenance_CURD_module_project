@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 
 @Entity
@@ -22,15 +24,19 @@ public class CurrencyMaintenanceEntity {
 	@GeneratedValue
 	private int id;
 
-	
+	//@NotEmpty
 	private  String curr_code;
 	
+	//@NotNull
 	private String desc;
 	
+	@Size(min=4, max=15)
+	//@NotNull(message = "country cannot be null")
 	private String country;
 	
 	private LocalDate localdate;
 	
+	@NotNull
 	private long value;
 
 	public CurrencyMaintenanceEntity() {

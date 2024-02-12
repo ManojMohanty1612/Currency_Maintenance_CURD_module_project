@@ -10,9 +10,18 @@ public class GlobalAdviceExceptionHandler {
 
 	@ExceptionHandler(UserIdNotAvailableInOutRecord.class)
 
-	public ResponseEntity<String> idNotFoundException(UserIdNotAvailableInOutRecord  userIdNotAvailableInOutRecord) {
+	public ResponseEntity<String> idNotFoundException(UserIdNotAvailableInOutRecord userIdNotAvailableInOutRecord) {
 
 		return new ResponseEntity<String>(userIdNotAvailableInOutRecord.getMessage(), HttpStatus.BAD_REQUEST);
 
 	}
+
+	@ExceptionHandler(NoCountyAvaillableInourRecord.class)
+	public ResponseEntity<String> noCountyAvaillableInourRecord(
+			NoCountyAvaillableInourRecord noCountyAvaillableInourRecord) {
+
+		return new ResponseEntity<String>(noCountyAvaillableInourRecord.getMessage(), HttpStatus.BAD_REQUEST);
+
+	}
+
 }

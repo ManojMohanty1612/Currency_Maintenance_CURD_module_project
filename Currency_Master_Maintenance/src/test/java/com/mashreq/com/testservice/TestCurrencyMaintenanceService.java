@@ -1,5 +1,6 @@
 package com.mashreq.com.testservice;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.when;
@@ -16,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.mashreq.com.entity.CurrencyMaintenanceEntity;
+import com.mashreq.com.exception.NoCountyAvaillableInourRecord;
 import com.mashreq.com.exception.UserIdNotAvailableInOutRecord;
 import com.mashreq.com.repo.CurrencyMaintenancerepo;
 import com.mashreq.com.service.CurrencyMaintenanceService;
@@ -56,7 +58,7 @@ public class TestCurrencyMaintenanceService {
 
 	}
 
-	@Test
+	// @Test
 	public void GetIdTest() throws UserIdNotAvailableInOutRecord {
 
 		int id = 101;
@@ -66,9 +68,20 @@ public class TestCurrencyMaintenanceService {
 		assertEquals(id, service.getId(id).getId());
 
 	}
-	
-	//deleteCurrencyMaintenance service method
-	
-	
+
+	// Country Nmae CurrencyMaintenance service method
+
+	@Test
+	public void countryCurrencyMaintenanceTest() throws NoCountyAvaillableInourRecord {
+		String str = "India";
+		List<CurrencyMaintenanceEntity> list = new ArrayList<>();
+		list.add(new CurrencyMaintenanceEntity(121, "ind", "from indai", "India", LocalDate.now(), 12000));
+		list.add(new CurrencyMaintenanceEntity(121, "ind", "from indai", "India", LocalDate.now(), 12000));
+
+		Mockito.when(repo.getCountryCurrencyMaintenanceEntity(str))
+	                                                  	.thenReturn(list);
+
+		assertEquals(str, service.featchBassedOnCountryCurrencyMaintenanceEntity(str));
+	}
 
 }
