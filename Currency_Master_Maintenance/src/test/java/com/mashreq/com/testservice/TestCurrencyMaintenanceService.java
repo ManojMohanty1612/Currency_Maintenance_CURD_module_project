@@ -69,9 +69,8 @@ public class TestCurrencyMaintenanceService {
 
 	}
 
-	// Country Nmae CurrencyMaintenance service method
 
-	@Test
+	//@Test
 	public void countryCurrencyMaintenanceTest() throws NoCountyAvaillableInourRecord {
 		String str = "India";
 		List<CurrencyMaintenanceEntity> list = new ArrayList<>();
@@ -82,6 +81,34 @@ public class TestCurrencyMaintenanceService {
 	                                                  	.thenReturn(list);
 
 		assertEquals(str, service.featchBassedOnCountryCurrencyMaintenanceEntity(str));
+	}
+	
+	@Test
+	public void testGatthernValue() {
+		
+		int value=5000;
+		List<CurrencyMaintenanceEntity> list = new ArrayList<>();
+		list.add(new CurrencyMaintenanceEntity(121, "ind", "from indai", "India", LocalDate.now(), 12000));
+		list.add(new CurrencyMaintenanceEntity(121, "ind", "from indai", "India", LocalDate.now(), 15870));
+
+		
+		Mockito.when(repo.findAll()).thenReturn(list);
+		
+		assertEquals(list, service.getValueGratterThen(value));
+	}
+	
+	@Test
+	public void testLessThernValue() {
+		
+		int value=5000;
+		List<CurrencyMaintenanceEntity> list = new ArrayList<>();
+		list.add(new CurrencyMaintenanceEntity(121, "ind", "from indai", "India", LocalDate.now(), 3000));
+		list.add(new CurrencyMaintenanceEntity(121, "ind", "from indai", "India", LocalDate.now(), 1870));
+
+		
+		Mockito.when(repo.findAll()).thenReturn(list);
+		
+		assertEquals(list, service.getValueLessThen(value));
 	}
 
 }

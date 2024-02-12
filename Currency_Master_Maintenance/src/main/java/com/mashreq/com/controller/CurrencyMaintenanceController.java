@@ -42,7 +42,7 @@ public class CurrencyMaintenanceController {
 	@Operation(summary = "*****For create Object*****")
 	public ResponseEntity<String> getAddCurrency(@Valid CurrencyMaintenanceEntity currencyMaintenanceEntity ,@RequestBody CurrencyMaintenanceEntity entity) {
 
-		logger.info("CurrencyMaintenanceEntity"+entity.getId()+"object created in DB");
+		logger.info("CurrencyMaintenanceEntity !!  "+entity.getId()+"  !! object created in DB");
 		CurrencyMaintenanceEntity currencyCustmer = serviceImpl.addCurrencyCustmer(entity);
 
 		return new ResponseEntity<>("Record Saved" + currencyCustmer.getId(), HttpStatus.OK);
